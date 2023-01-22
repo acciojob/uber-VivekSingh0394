@@ -97,7 +97,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 		}
 		else
-			throw new NoSuchElementException("No cab available!");
+			throw new Exception("No cab available!");
 
 	}
 
