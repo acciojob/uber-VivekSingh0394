@@ -49,7 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
 		for(Driver driver : driverList)
 		{
            Cab cab = driver.getCab();
-		   if(cab.isAvailable()==true)
+		   if(cab.getAvailable()==true)
 		   {
 			   if(driver.getDriverId()<driverId)
 			   {
@@ -73,7 +73,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
 		   // set cab id for cab
-		   cab .setCabId(cab.getCabId());
+		   cab .setId(cab.getCabId());
 
 		   //cab.setDriver(driver);
 
