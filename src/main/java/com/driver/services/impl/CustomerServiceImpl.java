@@ -11,6 +11,7 @@ import com.driver.repository.TripBookingRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -96,7 +97,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 		}
 		else
-			throw new Exception("No cab available!");
+			throw new NoSuchElementException("No cab available!");
 
 	}
 
@@ -117,7 +118,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     driver.getTripBookingList().add(tripBooking);
 
-      // tripBookingRepository2.save(tripBooking);
+      tripBookingRepository2.save(tripBooking);
 
 	}
 
