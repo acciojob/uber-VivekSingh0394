@@ -63,8 +63,8 @@ public class CustomerServiceImpl implements CustomerService {
 		if(driverId != Integer.MAX_VALUE)
 		{
 			// getting driver
-			Driver driver=new Driver();
-			driver = driverRepository2.findById(driverId).get();
+			//Driver driver=new Driver();
+			Driver driver = driverRepository2.findById(driverId).get();
 			// getting cab
 			Cab cab = driver.getCab();
 			// making cab unavailable
