@@ -89,13 +89,20 @@ public class CustomerServiceImpl implements CustomerService {
 			tripBooking.setDriver(driver);
 			tripBooking.setStatus(TripStatus.CONFIRMED);
 
+           int perkmrate = cab.getPerKmRate();
+		   tripBooking.setBill(distanceInKm*perkmrate);
 
 
 
 			// set triplist
-		  List<TripBooking>tripBookingList= driver.getTripBookingList();
-		  tripBookingList.add(tripBooking);
-		  tripBookingRepository2.save(tripBooking);
+			Customer customer= customerRepository2.findById(customerId).get();
+			customer.getTripBookingList().add(tripBooking);
+			driver.getTripBookingList().add(tripBooking);
+			customerRepository2.save(customer);
+			driverRepository2.save(driver);
+		  //List<TripBooking>tripBookingList= driver.getTripBookingList();
+		 // tripBookingList.add(tripBooking);
+		 // tripBookingRepository2.save(tripBooking);
 		  return tripBooking;
 
 		}
@@ -119,10 +126,10 @@ public class CustomerServiceImpl implements CustomerService {
 		  // set bill to zero
 		  tripBooking.setBill(0);
 
-		  customer.getTripBookingList().add(tripBooking);
+		 // customer.getTripBookingList().add(tripBooking); not needed since trip bookings are already there only status and bill is changed
 		// making cab available
 
-          driver.getTripBookingList().add(tripBooking);
+        //  driver.getTripBookingList().add(tripBooking); trip bookin transaction is already there we only need to update that transaction
 
           tripBookingRepository2.save(tripBooking);
 
