@@ -48,32 +48,32 @@ public class CustomerServiceImpl implements CustomerService {
 		//Customer customer = customerRepository2.findById(customerId).get();
 
 		List<Driver> driverList = driverRepository2.findAll();
-		int driverId = Integer.MAX_VALUE;
+		Driver driverji = null;
 		for(Driver driver : driverList)
 		{
            Cab cab = driver.getCab();
 		   if(cab.getAvailable()==true)
 		   {
-			   if(driver.getDriverId()<driverId)
+			   if((driverji == null )|| (driver.getDriverId()< driverji.getDriverId()))
 			   {
-				   driverId=driver.getDriverId();
+				   driverji =driver;
 			   }
 		   }
 		}
-		if(driverId != Integer.MAX_VALUE)
+		if(driverji != null)
 		{
 			// getting driver
 			//Driver driver=new Driver();
-			Driver driver = driverRepository2.findById(driverId).get();
+
 			// getting cab
-			Cab cab = driver.getCab();
+			Cab cab = driverji.getCab();
 			// making cab unavailable
 			cab.setAvailable(false);
 			// make driver unavail
         //  set cab for driver
-           driver.setCab(cab);
+           driverji.setCab(cab);
 		   // set driverid for driver
-		   driver.setDriverId(driverId);
+		  // driverji.setDriverId(driverId);
 
 
 		   // set cab id for cab
@@ -86,7 +86,7 @@ public class CustomerServiceImpl implements CustomerService {
 			tripBooking.setDistanceInKm(distanceInKm);
 			tripBooking.setFromLocation(fromLocation);
 			tripBooking.setToLocation(toLocation);
-			tripBooking.setDriver(driver);
+			tripBooking.setDriver(driverji);
 			tripBooking.setStatus(TripStatus.CONFIRMED);
 
            int perkmrate = cab.getPerKmRate();
@@ -97,9 +97,9 @@ public class CustomerServiceImpl implements CustomerService {
 			// set triplist
 			Customer customer= customerRepository2.findById(customerId).get();
 			customer.getTripBookingList().add(tripBooking);
-			driver.getTripBookingList().add(tripBooking);
+			driverji.getTripBookingList().add(tripBooking);
 			customerRepository2.save(customer);
-			driverRepository2.save(driver);
+			driverRepository2.save(driverji);
 		  //List<TripBooking>tripBookingList= driver.getTripBookingList();
 		 // tripBookingList.add(tripBooking);
 		 // tripBookingRepository2.save(tripBooking);
